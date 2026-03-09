@@ -1,0 +1,1106 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>発信を、点ではなく線で設計する | Deviant</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #070707;
+            --bg-soft: #101010;
+            --panel: rgba(255, 255, 255, 0.04);
+            --panel-strong: rgba(255, 255, 255, 0.07);
+            --line: rgba(255, 215, 0, 0.22);
+            --line-soft: rgba(255, 255, 255, 0.08);
+            --text: #ffffff;
+            --muted: rgba(255, 255, 255, 0.68);
+            --subtle: rgba(255, 255, 255, 0.42);
+            --gold: #ffd700;
+            --gold-deep: #d39d08;
+            --shadow: 0 28px 80px rgba(0, 0, 0, 0.42);
+            --radius-xl: 28px;
+            --radius-lg: 22px;
+            --radius-md: 16px;
+            --content: min(1120px, calc(100% - 40px));
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            color: var(--text);
+            background:
+                radial-gradient(circle at top left, rgba(255, 215, 0, 0.11), transparent 28%),
+                radial-gradient(circle at 85% 15%, rgba(255, 215, 0, 0.08), transparent 24%),
+                linear-gradient(180deg, #090909 0%, #060606 100%);
+            line-height: 1.65;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+            background-size: 56px 56px;
+            mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.85), transparent 90%);
+            opacity: 0.5;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .container {
+            width: var(--content);
+            margin: 0 auto;
+        }
+
+        .section {
+            position: relative;
+            padding: 88px 0;
+        }
+
+        .section + .section {
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 7px 14px;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            color: var(--gold);
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            background: rgba(255, 215, 0, 0.05);
+        }
+
+        .eyebrow::before {
+            content: "";
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--gold), #ffb300);
+            box-shadow: 0 0 18px rgba(255, 215, 0, 0.45);
+        }
+
+        .section-head {
+            max-width: 760px;
+            margin-bottom: 34px;
+        }
+
+        .section-head h2 {
+            font-size: clamp(32px, 5vw, 54px);
+            line-height: 1.18;
+            letter-spacing: -0.03em;
+            margin: 18px 0 14px;
+        }
+
+        .section-head p {
+            font-size: 16px;
+            color: var(--muted);
+        }
+
+        .hero {
+            padding: 28px 0 72px;
+        }
+
+        .hero-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 0 28px;
+        }
+
+        .brand {
+            font-size: 18px;
+            font-weight: 900;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+        }
+
+        .brand span {
+            color: var(--gold);
+        }
+
+        .nav-note {
+            font-size: 12px;
+            color: var(--subtle);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .hero-shell {
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 34px;
+            background:
+                linear-gradient(135deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02)),
+                linear-gradient(160deg, rgba(16, 16, 16, 0.96), rgba(8, 8, 8, 0.98));
+            box-shadow: var(--shadow);
+        }
+
+        .hero-shell::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 14% 18%, rgba(255, 215, 0, 0.12), transparent 26%),
+                radial-gradient(circle at 86% 20%, rgba(255, 215, 0, 0.09), transparent 22%),
+                linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, 0.03) 48%, transparent 100%);
+            pointer-events: none;
+        }
+
+        .hero-grid {
+            position: relative;
+            display: grid;
+            grid-template-columns: minmax(0, 1.12fr) minmax(320px, 0.88fr);
+            gap: 34px;
+            padding: 62px;
+        }
+
+        .hero-copy h1 {
+            font-size: clamp(42px, 7vw, 78px);
+            line-height: 1.02;
+            letter-spacing: -0.05em;
+            margin: 22px 0 20px;
+        }
+
+        .hero-copy h1 .accent {
+            display: block;
+        }
+
+        .hero-copy .lead {
+            max-width: 680px;
+            font-size: 17px;
+            color: var(--muted);
+        }
+
+        .hero-micro {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 26px 0 34px;
+        }
+
+        .hero-micro span {
+            padding: 8px 14px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.78);
+            font-weight: 700;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            min-height: 52px;
+            padding: 0 24px;
+            border-radius: 999px;
+            font-weight: 800;
+            letter-spacing: 0.01em;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .button:hover {
+            transform: translateY(-1px);
+        }
+
+        .button-primary {
+            color: #080808;
+            background: linear-gradient(135deg, var(--gold), #ffbf1f);
+            box-shadow: 0 18px 44px rgba(255, 215, 0, 0.16);
+        }
+
+        .button-secondary {
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--text);
+        }
+
+        .hero-note {
+            font-size: 13px;
+            color: var(--subtle);
+        }
+
+        .hero-board {
+            position: relative;
+            min-height: 100%;
+            padding: 22px;
+            border-radius: 28px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.02));
+        }
+
+        .hero-board::after {
+            content: "";
+            position: absolute;
+            inset: 18px;
+            border: 1px solid rgba(255, 215, 0, 0.12);
+            border-radius: 22px;
+            pointer-events: none;
+        }
+
+        .board-label {
+            font-size: 11px;
+            color: var(--gold);
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            font-weight: 900;
+            margin-bottom: 18px;
+        }
+
+        .board-stack {
+            display: grid;
+            gap: 14px;
+        }
+
+        .signal-card {
+            position: relative;
+            padding: 20px 18px;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .signal-card::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold), transparent);
+            border-radius: 18px 18px 0 0;
+        }
+
+        .signal-card small {
+            display: block;
+            font-size: 10px;
+            color: var(--subtle);
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            font-weight: 800;
+        }
+
+        .signal-card h3 {
+            font-size: 22px;
+            line-height: 1.22;
+            margin-bottom: 8px;
+        }
+
+        .signal-card p {
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        .hero-metric {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .metric-item {
+            padding: 14px;
+            border-radius: 16px;
+            background: rgba(0, 0, 0, 0.22);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .metric-item strong {
+            display: block;
+            color: var(--gold);
+            font-size: 13px;
+            margin-bottom: 4px;
+        }
+
+        .metric-item span {
+            font-size: 12px;
+            color: var(--muted);
+        }
+        .problem-grid,
+        .service-grid,
+        .benefit-grid,
+        .pricing-grid {
+            display: grid;
+            gap: 18px;
+        }
+
+        .problem-grid {
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+        }
+
+        .service-grid,
+        .benefit-grid,
+        .pricing-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .panel {
+            position: relative;
+            padding: 26px 22px;
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.02));
+            box-shadow: var(--shadow);
+        }
+
+        .panel::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+            background: linear-gradient(90deg, rgba(255, 215, 0, 0.88), rgba(255, 215, 0, 0));
+        }
+
+        .problem-card {
+            min-height: 212px;
+        }
+
+        .problem-index,
+        .service-index,
+        .benefit-index {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--gold), #ffb400);
+            color: #060606;
+            font-size: 14px;
+            font-weight: 900;
+            margin-bottom: 18px;
+        }
+
+        .problem-card h3,
+        .service-card h3,
+        .benefit-card h3,
+        .price-card h3 {
+            font-size: 22px;
+            line-height: 1.28;
+            margin-bottom: 10px;
+        }
+
+        .problem-card p,
+        .service-card p,
+        .benefit-card p,
+        .price-card p {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .flow-shell {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 24px;
+            align-items: stretch;
+        }
+
+        .flow-panel {
+            padding: 30px;
+        }
+
+        .flow-header {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            align-items: end;
+            margin-bottom: 22px;
+        }
+
+        .flow-header h3 {
+            font-size: 28px;
+            line-height: 1.25;
+        }
+
+        .flow-header p {
+            max-width: 360px;
+            font-size: 14px;
+            color: var(--muted);
+        }
+
+        .flow-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .flow-step {
+            position: relative;
+            padding: 22px 18px;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.035);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+        }
+
+        .flow-step::after {
+            content: "";
+            position: absolute;
+            top: 30px;
+            right: -14px;
+            width: 28px;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(255, 215, 0, 0.6), transparent);
+        }
+
+        .flow-step:last-child::after {
+            display: none;
+        }
+
+        .flow-step span {
+            display: block;
+            font-size: 10px;
+            letter-spacing: 0.16em;
+            color: var(--gold);
+            text-transform: uppercase;
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+
+        .flow-step h4 {
+            font-size: 19px;
+            margin-bottom: 8px;
+        }
+
+        .flow-step p {
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        .quote-panel {
+            padding: 30px;
+            background: linear-gradient(160deg, rgba(255, 215, 0, 0.12), rgba(255, 255, 255, 0.03));
+            border: 1px solid rgba(255, 215, 0, 0.22);
+        }
+
+        .quote-panel small {
+            display: inline-block;
+            color: var(--gold);
+            font-size: 11px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            font-weight: 900;
+            margin-bottom: 14px;
+        }
+
+        .quote-panel h3 {
+            font-size: clamp(30px, 4vw, 44px);
+            line-height: 1.12;
+            margin-bottom: 16px;
+        }
+
+        .quote-panel p {
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.78);
+        }
+
+        .service-card ul,
+        .benefit-card ul,
+        .price-card ul,
+        .cta-list {
+            list-style: none;
+            margin-top: 16px;
+        }
+
+        .service-card li,
+        .benefit-card li,
+        .price-card li,
+        .cta-list li {
+            position: relative;
+            padding-left: 16px;
+            color: rgba(255, 255, 255, 0.82);
+            font-size: 13px;
+            line-height: 1.65;
+            margin-bottom: 7px;
+        }
+
+        .service-card li::before,
+        .benefit-card li::before,
+        .price-card li::before,
+        .cta-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--gold);
+        }
+
+        .service-meta,
+        .price-meta {
+            display: inline-block;
+            margin-bottom: 14px;
+            color: var(--subtle);
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+        }
+        .price-card {
+            min-height: 100%;
+        }
+
+        .price-card.featured {
+            border-color: rgba(255, 215, 0, 0.28);
+            background: linear-gradient(160deg, rgba(255, 215, 0, 0.12), rgba(255, 255, 255, 0.03));
+        }
+
+        .price-figure {
+            font-size: 34px;
+            line-height: 1;
+            color: var(--gold);
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+
+        .price-figure span {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.58);
+            font-weight: 700;
+        }
+
+        .pricing-footnote {
+            margin-top: 18px;
+            font-size: 13px;
+            color: var(--subtle);
+        }
+
+        .cta-shell {
+            position: relative;
+            overflow: hidden;
+            padding: 44px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background:
+                radial-gradient(circle at 80% 20%, rgba(255, 215, 0, 0.12), transparent 22%),
+                linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+            box-shadow: var(--shadow);
+        }
+
+        .cta-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
+            gap: 28px;
+            align-items: center;
+        }
+
+        .cta-copy h2 {
+            font-size: clamp(32px, 5vw, 52px);
+            line-height: 1.12;
+            margin: 16px 0 14px;
+        }
+
+        .cta-copy p {
+            color: var(--muted);
+            font-size: 16px;
+        }
+
+        .cta-card {
+            padding: 24px;
+            border-radius: 22px;
+            background: rgba(0, 0, 0, 0.24);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .cta-card h3 {
+            font-size: 22px;
+            margin-bottom: 12px;
+        }
+
+        .cta-card p {
+            font-size: 14px;
+            color: var(--muted);
+            margin-bottom: 16px;
+        }
+
+        footer {
+            padding: 24px 0 48px;
+        }
+
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            gap: 18px;
+            align-items: center;
+            color: var(--subtle);
+            font-size: 13px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding-top: 18px;
+        }
+
+        @media (max-width: 1080px) {
+            .problem-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+
+            .flow-shell,
+            .cta-grid,
+            .hero-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .flow-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .flow-step::after {
+                display: none;
+            }
+        }
+
+        @media (max-width: 760px) {
+            .section {
+                padding: 64px 0;
+            }
+
+            .hero {
+                padding-bottom: 48px;
+            }
+
+            .hero-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+
+            .hero-shell {
+                border-radius: 26px;
+            }
+
+            .hero-grid,
+            .cta-shell {
+                padding: 26px;
+            }
+
+            .hero-copy h1 {
+                font-size: clamp(36px, 12vw, 56px);
+            }
+
+            .hero-copy .lead,
+            .section-head p,
+            .cta-copy p {
+                font-size: 15px;
+            }
+
+            .problem-grid,
+            .service-grid,
+            .benefit-grid,
+            .pricing-grid,
+            .flow-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-metric {
+                grid-template-columns: 1fr;
+            }
+
+            .problem-card {
+                min-height: auto;
+            }
+
+            .quote-panel h3 {
+                font-size: 30px;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero -->
+    <header class="hero">
+        <div class="container">
+            <div class="hero-header">
+                <a class="brand" href="#top">DEVIANT <span>LP</span></a>
+                <div class="nav-note">Integrated Communication Support</div>
+            </div>
+
+            <div class="hero-shell" id="top">
+                <div class="hero-grid">
+                    <div class="hero-copy">
+                        <div class="eyebrow">Integrated Support</div>
+                        <h1>発信を、<span class="accent">点ではなく線で設計する。</span></h1>
+                        <p class="lead">Web記事、X運用、ビデオPodcastを別々に回すのではなく、認知獲得から信頼形成、比較検討、問い合わせまで一貫した導線として運用します。中小企業やBtoB企業が、無理なく続けられる発信体制を設計・実行まで支援します。</p>
+
+                        <div class="hero-micro">
+                            <span>Xで認知を広げる</span>
+                            <span>記事で理解と信頼を深める</span>
+                            <span>Podcastで人とブランドを伝える</span>
+                            <span>SEO / GEOも視野に情報設計</span>
+                        </div>
+
+                        <div class="hero-actions">
+                            <a class="button button-primary" href="#contact">無料で相談する</a>
+                            <a class="button button-secondary" href="#services">サービスを見る</a>
+                            <div class="hero-note">単体相談も、組み合わせ相談も可能です。</div>
+                        </div>
+                    </div>
+
+                    <div class="hero-board">
+                        <div class="board-label">How It Works</div>
+                        <div class="board-stack">
+                            <article class="signal-card">
+                                <small>Reach</small>
+                                <h3>X運用で、最初の接点を増やす</h3>
+                                <p>拡散力・リアルタイム性・エンゲージメントを活かし、認知の入口を広げます。</p>
+                            </article>
+                            <article class="signal-card">
+                                <small>Trust</small>
+                                <h3>Web記事で、理解と比較を前に進める</h3>
+                                <p>記事、note、X記事、必要に応じたSEO / GEO設計で、比較検討時の信頼形成を支えます。</p>
+                            </article>
+                            <article class="signal-card">
+                                <small>Preference</small>
+                                <h3>Podcastで、人とブランドまで伝える</h3>
+                                <p>人柄や空気感まで届くコンテンツで、営業や採用でも選ばれやすい状態を作ります。</p>
+                            </article>
+                        </div>
+
+                        <div class="hero-metric">
+                            <div class="metric-item">
+                                <strong>認知獲得</strong>
+                                <span>SNSで接点を作る</span>
+                            </div>
+                            <div class="metric-item">
+                                <strong>信頼形成</strong>
+                                <span>記事で理解を深める</span>
+                            </div>
+                            <div class="metric-item">
+                                <strong>問い合わせ導線</strong>
+                                <span>比較検討までつなぐ</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Problems -->
+    <section class="section" aria-labelledby="problems">
+        <div class="container">
+            <div class="section-head">
+                <div class="eyebrow">Issue</div>
+                <h2 id="problems">こんな課題、ありませんか</h2>
+                <p>発信を始めたい会社ほど、実際には「継続できない」「つながらない」「社内で回らない」という壁にぶつかりやすくなります。</p>
+            </div>
+            <div class="problem-grid">
+                <article class="panel problem-card">
+                    <div class="problem-index">01</div>
+                    <h3>発信したいが、手が回らない</h3>
+                    <p>日々の業務が優先され、記事もSNSも動画も中途半端になってしまう。</p>
+                </article>
+                <article class="panel problem-card">
+                    <div class="problem-index">02</div>
+                    <h3>SNSだけでは信頼につながりにくい</h3>
+                    <p>認知は取れても、比較検討の段階で十分な説明ができていない。</p>
+                </article>
+                <article class="panel problem-card">
+                    <div class="problem-index">03</div>
+                    <h3>記事を書いても広がらない</h3>
+                    <p>せっかく作った記事が、拡散や再利用の導線まで設計されていない。</p>
+                </article>
+                <article class="panel problem-card">
+                    <div class="problem-index">04</div>
+                    <h3>動画をやりたいが続かない</h3>
+                    <p>撮影や企画まではできても、継続運用や多チャネル展開まで手が届かない。</p>
+                </article>
+                <article class="panel problem-card">
+                    <div class="problem-index">05</div>
+                    <h3>発信が点で終わっている</h3>
+                    <p>記事・SNS・動画が個別に存在し、問い合わせにつながる一本の線になっていない。</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Flow -->
+    <section class="section" aria-labelledby="solution">
+        <div class="container">
+            <div class="section-head">
+                <div class="eyebrow">Solution</div>
+                <h2 id="solution">3つの手段を、役割分担のある導線として設計します</h2>
+                <p>単体サービスを並べるのではなく、それぞれがどの役割を持つかを整理することで、認知から問い合わせまでの流れを強くします。</p>
+            </div>
+
+            <div class="flow-shell">
+                <div class="panel flow-panel">
+                    <div class="flow-header">
+                        <h3>発信を一気通貫で設計する、実行型の支援</h3>
+                        <p>企業の現状や目的に合わせて、入口・理解・指名化のどこを補強するかから組み立てます。</p>
+                    </div>
+                    <div class="flow-grid">
+                        <article class="flow-step">
+                            <span>Step 01</span>
+                            <h4>Xで認知を広げる</h4>
+                            <p>拡散しやすい短文とリアルタイム運用で、接点を増やします。</p>
+                        </article>
+                        <article class="flow-step">
+                            <span>Step 02</span>
+                            <h4>記事で理解を深める</h4>
+                            <p>比較検討時に必要な情報を整理し、信頼形成を進めます。</p>
+                        </article>
+                        <article class="flow-step">
+                            <span>Step 03</span>
+                            <h4>Podcastで人を伝える</h4>
+                            <p>人柄や空気感まで伝え、指名や採用にもつなげます。</p>
+                        </article>
+                        <article class="flow-step">
+                            <span>Step 04</span>
+                            <h4>問い合わせ導線に落とす</h4>
+                            <p>各チャネルをつなぎ、比較検討から相談までの流れを整えます。</p>
+                        </article>
+                    </div>
+                </div>
+
+                <aside class="panel quote-panel">
+                    <small>Concept</small>
+                    <h3>発信を、<br>単発施策で終わらせない。</h3>
+                    <p>認知だけ、記事だけ、動画だけではなく、役割を整理して一貫運用することで、社内の手間を抑えながら成果につながる導線を作りやすくなります。</p>
+                </aside>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section class="section" id="services" aria-labelledby="services-title">
+        <div class="container">
+            <div class="section-head">
+                <div class="eyebrow">Services</div>
+                <h2 id="services-title">できることを、役割ごとに短く整理すると</h2>
+                <p>それぞれ単体でも支援できますが、組み合わせることで導線全体の強度を上げやすくなります。</p>
+            </div>
+
+            <div class="service-grid">
+                <article class="panel service-card">
+                    <div class="service-index">01</div>
+                    <span class="service-meta">Web Article / SEO / GEO</span>
+                    <h3>Web記事運用</h3>
+                    <p>比較検討時の信頼形成に強く、記事を資産として積み上げやすい支援です。note運用やX記事への展開、必要に応じたSEO / GEO設計にも対応できます。</p>
+                    <ul>
+                        <li>記事制作 / リライト / note運用</li>
+                        <li>X記事化などの再活用</li>
+                        <li>比較されやすい情報設計</li>
+                    </ul>
+                </article>
+
+                <article class="panel service-card">
+                    <div class="service-index">02</div>
+                    <span class="service-meta">X Operation</span>
+                    <h3>X運用代行</h3>
+                    <p>拡散力、リアルタイム性、エンゲージメント形成を活かして、認知の入口を広げる役割を担います。日々の運用負荷もまとめて支えます。</p>
+                    <ul>
+                        <li>ポスト作成・投稿</li>
+                        <li>リプライ対応 / 記事化</li>
+                        <li>月次レポート / KPI整理</li>
+                    </ul>
+                </article>
+
+                <article class="panel service-card">
+                    <div class="service-index">03</div>
+                    <span class="service-meta">Video Podcast</span>
+                    <h3>ビデオPodcast運用</h3>
+                    <p>人柄や空気感まで伝わるため、信頼構築に強い手段です。1本の収録から複数チャネル展開しやすく、営業だけでなく採用広報にも相性があります。</p>
+                    <ul>
+                        <li>企画から投稿まで一気通貫</li>
+                        <li>多チャネル展開に対応</li>
+                        <li>先行者優位を狙いやすい領域</li>
+                    </ul>
+                </article>
+            </div>
+        </div>
+    </section>
+    <!-- Benefits -->
+    <section class="section" aria-labelledby="benefits-title">
+        <div class="container">
+            <div class="section-head">
+                <div class="eyebrow">Benefits</div>
+                <h2 id="benefits-title">導入メリット</h2>
+                <p>発信を単体の施策として終わらせず、営業や採用でも使える資産に変えていくことが、この支援の価値です。</p>
+            </div>
+
+            <div class="benefit-grid">
+                <article class="panel benefit-card">
+                    <div class="benefit-index">A</div>
+                    <h3>発信を資産化しやすい</h3>
+                    <p>記事、X、Podcastを横展開しながら蓄積できるため、単発で終わりにくくなります。</p>
+                    <ul>
+                        <li>ストック型のコンテンツが増える</li>
+                        <li>過去素材の再利用もしやすい</li>
+                    </ul>
+                </article>
+                <article class="panel benefit-card">
+                    <div class="benefit-index">B</div>
+                    <h3>認知から問い合わせまでつながりやすい</h3>
+                    <p>入口となるSNS、理解を深める記事、指名につながる動画が一本の流れになります。</p>
+                    <ul>
+                        <li>比較検討の途中離脱を減らしやすい</li>
+                        <li>営業前の理解を前に進められる</li>
+                    </ul>
+                </article>
+                <article class="panel benefit-card">
+                    <div class="benefit-index">C</div>
+                    <h3>営業と採用の両方に効く</h3>
+                    <p>サービス理解だけでなく、会社の考え方や人柄まで伝えやすくなります。</p>
+                    <ul>
+                        <li>BtoBの信頼形成に相性が良い</li>
+                        <li>採用広報の土台にも使える</li>
+                    </ul>
+                </article>
+                <article class="panel benefit-card">
+                    <div class="benefit-index">D</div>
+                    <h3>社内工数を抑えやすい</h3>
+                    <p>企画、制作、投稿、再展開までを外部化することで、担当者の負担を減らせます。</p>
+                    <ul>
+                        <li>継続運用の負荷を下げられる</li>
+                        <li>社内にノウハウがなくても進めやすい</li>
+                    </ul>
+                </article>
+                <article class="panel benefit-card">
+                    <div class="benefit-index">E</div>
+                    <h3>AI時代の情報整備にもつながる</h3>
+                    <p>必要に応じてSEO / GEOの視点も取り入れ、AIや検索から参照されやすい情報設計を進められます。</p>
+                    <ul>
+                        <li>比較されやすい情報を整理できる</li>
+                        <li>根拠や強みを明文化しやすい</li>
+                    </ul>
+                </article>
+                <article class="panel benefit-card">
+                    <div class="benefit-index">F</div>
+                    <h3>単体でも、組み合わせでも相談できる</h3>
+                    <p>最初から全部を一度に始める必要はありません。現状と目的に合わせて設計できます。</p>
+                    <ul>
+                        <li>まずは記事だけ / Xだけも可能</li>
+                        <li>必要な時点で追加設計できる</li>
+                    </ul>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="section" aria-labelledby="pricing-title">
+        <div class="container">
+            <div class="section-head">
+                <div class="eyebrow">Pricing</div>
+                <h2 id="pricing-title">料金の考え方</h2>
+                <p>細かい料金表を先に固定するのではなく、目的・体制・運用本数を踏まえて最適な組み合わせを設計する進め方を基本にしています。</p>
+            </div>
+
+            <div class="pricing-grid">
+                <article class="panel price-card">
+                    <span class="price-meta">Single Service</span>
+                    <h3>単体支援も可能</h3>
+                    <p>「まずはXだけ」「まずは記事だけ」といったスタートでも問題ありません。必要なところから始めて、後から導線を拡張できます。</p>
+                    <ul>
+                        <li>Web記事制作 / 運用</li>
+                        <li>X運用代行</li>
+                        <li>ビデオPodcast運用</li>
+                    </ul>
+                </article>
+
+                <article class="panel price-card featured">
+                    <span class="price-meta">Integrated Plan</span>
+                    <h3>組み合わせ支援が本領</h3>
+                    <p>認知、信頼、比較検討のどこを強めるべきかを整理した上で、必要なサービスを組み合わせて設計します。</p>
+                    <div class="price-figure">要相談<span> / ヒアリングベース</span></div>
+                    <ul>
+                        <li>現状の発信状況を整理</li>
+                        <li>優先順位に沿って設計</li>
+                        <li>運用体制まで含めて提案</li>
+                    </ul>
+                </article>
+
+                <article class="panel price-card">
+                    <span class="price-meta">Reference</span>
+                    <h3>参考価格の目安</h3>
+                    <p>詳細は要相談ですが、既存支援の価格感は下記が目安です。目的や本数によって調整します。</p>
+                    <ul>
+                        <li>Web記事: 1記事 3〜5万円</li>
+                        <li>X運用: 月5万円〜</li>
+                        <li>Podcast: 月10万円〜</li>
+                        <li>GEO追加対応: 要相談</li>
+                    </ul>
+                </article>
+            </div>
+
+            <p class="pricing-footnote">まずは無理なく続けられる運用設計を優先し、その上で必要な支援範囲を決める進め方をおすすめしています。</p>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section" id="contact" aria-labelledby="cta-title">
+        <div class="container">
+            <div class="cta-shell">
+                <div class="cta-grid">
+                    <div class="cta-copy">
+                        <div class="eyebrow">Contact</div>
+                        <h2 id="cta-title">発信の現状整理から、無料でご相談いただけます</h2>
+                        <p>「何から始めるべきか分からない」「記事・SNS・動画をどうつなげるべきか整理したい」という段階でも問題ありません。まずは現状と目的を伺い、どこから設計するのが自然かをご提案します。</p>
+                    </div>
+
+                    <div class="cta-card">
+                        <h3>ご相談いただける内容</h3>
+                        <p>単体サービスの相談から、統合運用の設計まで対応できます。</p>
+                        <ul class="cta-list">
+                            <li>記事 / X / Podcast の役割整理</li>
+                            <li>認知から問い合わせまでの導線設計</li>
+                            <li>社内体制に合う運用方法の設計</li>
+                            <li>SEO / GEO を含めた情報整理</li>
+                        </ul>
+                        <div class="hero-actions" style="margin-top: 20px;">
+                            <a class="button button-primary" href="#contact">お問い合わせ・無料相談</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-inner">
+                <div>Deviant</div>
+                <div>Web記事 / X運用 / ビデオPodcastを、導線として一貫支援</div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
+
