@@ -682,14 +682,36 @@ p {
 }
 
 @media (max-width: 760px) {
+    .site-header {
+        position: static;
+    }
+
     .header-inner,
     .footer-inner {
         flex-direction: column;
         align-items: flex-start;
     }
 
+    .brand {
+        display: none;
+    }
+
+    .header-inner {
+        min-height: auto;
+        padding: 12px 0;
+    }
+
     .header-nav {
+        width: 100%;
+        flex-wrap: nowrap;
         justify-content: flex-start;
+        overflow-x: auto;
+        padding-bottom: 4px;
+        scrollbar-width: none;
+    }
+
+    .header-nav::-webkit-scrollbar {
+        display: none;
     }
 
     .hero,
@@ -720,9 +742,15 @@ p {
         font-size: 15px;
     }
 
-    .button,
-    .nav-link {
+    .button {
         width: 100%;
+    }
+
+    .nav-link {
+        width: auto;
+        flex: 0 0 auto;
+        padding: 8px 12px;
+        font-size: 12px;
     }
 
     .hero-actions,
@@ -732,7 +760,6 @@ p {
         align-items: stretch;
     }
 }
-
 @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
@@ -742,5 +769,7 @@ p {
         scroll-behavior: auto !important;
     }
 }
+
+
 
 
