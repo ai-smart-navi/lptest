@@ -70,7 +70,7 @@
 
         .section {
             position: relative;
-            padding: 88px 0;
+            padding: 84px 0;
         }
 
         .section + .section {
@@ -102,24 +102,24 @@
         }
 
         .section-head {
-            max-width: 760px;
-            margin-bottom: 34px;
+            max-width: 740px;
+            margin-bottom: 30px;
         }
 
         .section-head h2 {
-            font-size: clamp(32px, 5vw, 54px);
+            font-size: clamp(32px, 5vw, 52px);
             line-height: 1.18;
             letter-spacing: -0.03em;
-            margin: 18px 0 14px;
+            margin: 18px 0 12px;
         }
 
         .section-head p {
-            font-size: 16px;
+            font-size: 15px;
             color: var(--muted);
         }
 
         .hero {
-            padding: 28px 0 72px;
+            padding: 28px 0 64px;
         }
 
         .hero-header {
@@ -172,16 +172,16 @@
         .hero-grid {
             position: relative;
             display: grid;
-            grid-template-columns: minmax(0, 1.12fr) minmax(320px, 0.88fr);
-            gap: 34px;
-            padding: 62px;
+            grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.92fr);
+            gap: 30px;
+            padding: 58px;
         }
 
         .hero-copy h1 {
-            font-size: clamp(42px, 7vw, 78px);
+            font-size: clamp(42px, 7vw, 76px);
             line-height: 1.02;
             letter-spacing: -0.05em;
-            margin: 22px 0 20px;
+            margin: 22px 0 18px;
         }
 
         .hero-copy h1 .accent {
@@ -189,7 +189,7 @@
         }
 
         .hero-copy .lead {
-            max-width: 680px;
+            max-width: 620px;
             font-size: 17px;
             color: var(--muted);
         }
@@ -198,7 +198,7 @@
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
-            margin: 26px 0 34px;
+            margin: 24px 0 30px;
         }
 
         .hero-micro span {
@@ -251,6 +251,16 @@
             font-size: 13px;
             color: var(--subtle);
         }
+
+        .float-in {
+            opacity: 0;
+            transform: translateY(18px);
+            animation: floatIn 0.7s ease forwards;
+        }
+
+        .float-in.delay-1 { animation-delay: 0.12s; }
+        .float-in.delay-2 { animation-delay: 0.2s; }
+        .float-in.delay-3 { animation-delay: 0.28s; }
 
         .hero-board {
             position: relative;
@@ -358,13 +368,19 @@
         }
 
         .problem-grid {
-            grid-template-columns: repeat(5, minmax(0, 1fr));
+            grid-template-columns: repeat(3, minmax(0, 1fr));
         }
 
-        .service-grid,
-        .benefit-grid,
-        .pricing-grid {
+        .service-grid {
             grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .benefit-grid {
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+
+        .pricing-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
         }
 
         .panel {
@@ -374,6 +390,13 @@
             border: 1px solid rgba(255, 255, 255, 0.08);
             background: linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.02));
             box-shadow: var(--shadow);
+            transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .panel:hover {
+            transform: translateY(-3px);
+            border-color: rgba(255, 215, 0, 0.18);
+            box-shadow: 0 32px 90px rgba(0, 0, 0, 0.48);
         }
 
         .panel::before {
@@ -387,8 +410,15 @@
             background: linear-gradient(90deg, rgba(255, 215, 0, 0.88), rgba(255, 215, 0, 0));
         }
 
-        .problem-card {
-            min-height: 212px;
+        .reveal {
+            opacity: 0;
+            transform: translateY(18px);
+            transition: opacity 0.65s ease, transform 0.65s ease;
+        }
+
+        .reveal.is-visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .problem-index,
@@ -426,7 +456,7 @@
 
         .flow-shell {
             display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
+            grid-template-columns: 1.08fr 0.92fr;
             gap: 24px;
             align-items: stretch;
         }
@@ -449,7 +479,7 @@
         }
 
         .flow-header p {
-            max-width: 360px;
+            max-width: 320px;
             font-size: 14px;
             color: var(--muted);
         }
@@ -569,9 +599,6 @@
             letter-spacing: 0.18em;
             text-transform: uppercase;
         }
-        .price-card {
-            min-height: 100%;
-        }
 
         .price-card.featured {
             border-color: rgba(255, 215, 0, 0.28);
@@ -583,7 +610,7 @@
             line-height: 1;
             color: var(--gold);
             font-weight: 900;
-            margin-bottom: 10px;
+            margin: 12px 0 10px;
         }
 
         .price-figure span {
@@ -601,7 +628,7 @@
         .cta-shell {
             position: relative;
             overflow: hidden;
-            padding: 44px;
+            padding: 42px;
             border-radius: 30px;
             border: 1px solid rgba(255, 255, 255, 0.08);
             background:
@@ -612,15 +639,15 @@
 
         .cta-grid {
             display: grid;
-            grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
+            grid-template-columns: minmax(0, 1.12fr) minmax(280px, 0.88fr);
             gap: 28px;
             align-items: center;
         }
 
         .cta-copy h2 {
-            font-size: clamp(32px, 5vw, 52px);
+            font-size: clamp(32px, 5vw, 50px);
             line-height: 1.12;
-            margin: 16px 0 14px;
+            margin: 16px 0 12px;
         }
 
         .cta-copy p {
@@ -661,15 +688,27 @@
             padding-top: 18px;
         }
 
-        @media (max-width: 1080px) {
-            .problem-grid {
-                grid-template-columns: repeat(3, minmax(0, 1fr));
+        @keyframes floatIn {
+            from {
+                opacity: 0;
+                transform: translateY(18px);
             }
 
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 1080px) {
+            .hero-grid,
             .flow-shell,
-            .cta-grid,
-            .hero-grid {
+            .cta-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .benefit-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
             }
 
             .flow-grid {
@@ -687,7 +726,7 @@
             }
 
             .hero {
-                padding-bottom: 48px;
+                padding-bottom: 46px;
             }
 
             .hero-header {
@@ -727,17 +766,19 @@
                 grid-template-columns: 1fr;
             }
 
-            .problem-card {
-                min-height: auto;
-            }
-
-            .quote-panel h3 {
-                font-size: 30px;
-            }
-
             .footer-inner {
                 flex-direction: column;
                 align-items: flex-start;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation: none !important;
+                transition: none !important;
+                scroll-behavior: auto !important;
             }
         }
     </style>
@@ -754,36 +795,36 @@
             <div class="hero-shell" id="top">
                 <div class="hero-grid">
                     <div class="hero-copy">
-                        <div class="eyebrow">Integrated Support</div>
-                        <h1>発信を、<span class="accent">点ではなく線で設計する。</span></h1>
-                        <p class="lead">Web記事、X運用、ビデオPodcastを別々に回すのではなく、認知獲得から信頼形成、比較検討、問い合わせまで一貫した導線として運用します。中小企業やBtoB企業が、無理なく続けられる発信体制を設計・実行まで支援します。</p>
+                        <div class="eyebrow float-in">Integrated Support</div>
+                        <h1 class="float-in delay-1">発信を、<span class="accent">点ではなく線で設計する。</span></h1>
+                        <p class="lead float-in delay-2">Web記事、X運用、ビデオPodcastを一貫した導線として設計し、認知獲得から信頼形成、比較検討、問い合わせまでまとめて支援します。</p>
 
-                        <div class="hero-micro">
+                        <div class="hero-micro float-in delay-3">
                             <span>Xで認知を広げる</span>
-                            <span>記事で理解と信頼を深める</span>
+                            <span>記事で理解を深める</span>
                             <span>Podcastで人とブランドを伝える</span>
                             <span>SEO / GEOも視野に情報設計</span>
                         </div>
 
                         <div class="hero-actions">
                             <a class="button button-primary" href="#contact">無料で相談する</a>
-                            <a class="button button-secondary" href="#services">サービスを見る</a>
+                            <a class="button button-secondary" href="#support">支援内容を見る</a>
                             <div class="hero-note">単体相談も、組み合わせ相談も可能です。</div>
                         </div>
                     </div>
 
-                    <div class="hero-board">
+                    <div class="hero-board reveal">
                         <div class="board-label">How It Works</div>
                         <div class="board-stack">
                             <article class="signal-card">
                                 <small>Reach</small>
                                 <h3>X運用で、最初の接点を増やす</h3>
-                                <p>拡散力・リアルタイム性・エンゲージメントを活かし、認知の入口を広げます。</p>
+                                <p>拡散力とリアルタイム性を活かし、認知の入口を広げます。</p>
                             </article>
                             <article class="signal-card">
                                 <small>Trust</small>
-                                <h3>Web記事で、理解と比較を前に進める</h3>
-                                <p>記事、note、X記事、必要に応じたSEO / GEO設計で、比較検討時の信頼形成を支えます。</p>
+                                <h3>記事で、理解と比較を前に進める</h3>
+                                <p>記事、note、X記事、必要に応じたSEO / GEO設計で信頼形成を支えます。</p>
                             </article>
                             <article class="signal-card">
                                 <small>Preference</small>
@@ -802,7 +843,7 @@
                                 <span>記事で理解を深める</span>
                             </div>
                             <div class="metric-item">
-                                <strong>問い合わせ導線</strong>
+                                <strong>相談導線</strong>
                                 <span>比較検討までつなぐ</span>
                             </div>
                         </div>
@@ -812,295 +853,248 @@
         </div>
     </header>
 
-    <!-- Problems -->
-    <section class="section" aria-labelledby="problems">
-        <div class="container">
-            <div class="section-head">
-                <div class="eyebrow">Issue</div>
-                <h2 id="problems">こんな課題、ありませんか</h2>
-                <p>発信を始めたい会社ほど、実際には「継続できない」「つながらない」「社内で回らない」という壁にぶつかりやすくなります。</p>
-            </div>
-            <div class="problem-grid">
-                <article class="panel problem-card">
-                    <div class="problem-index">01</div>
-                    <h3>発信したいが、手が回らない</h3>
-                    <p>日々の業務が優先され、記事もSNSも動画も中途半端になってしまう。</p>
-                </article>
-                <article class="panel problem-card">
-                    <div class="problem-index">02</div>
-                    <h3>SNSだけでは信頼につながりにくい</h3>
-                    <p>認知は取れても、比較検討の段階で十分な説明ができていない。</p>
-                </article>
-                <article class="panel problem-card">
-                    <div class="problem-index">03</div>
-                    <h3>記事を書いても広がらない</h3>
-                    <p>せっかく作った記事が、拡散や再利用の導線まで設計されていない。</p>
-                </article>
-                <article class="panel problem-card">
-                    <div class="problem-index">04</div>
-                    <h3>動画をやりたいが続かない</h3>
-                    <p>撮影や企画まではできても、継続運用や多チャネル展開まで手が届かない。</p>
-                </article>
-                <article class="panel problem-card">
-                    <div class="problem-index">05</div>
-                    <h3>発信が点で終わっている</h3>
-                    <p>記事・SNS・動画が個別に存在し、問い合わせにつながる一本の線になっていない。</p>
-                </article>
-            </div>
-        </div>
-    </section>
-
-    <!-- Solution Flow -->
-    <section class="section" aria-labelledby="solution">
-        <div class="container">
-            <div class="section-head">
-                <div class="eyebrow">Solution</div>
-                <h2 id="solution">3つの手段を、役割分担のある導線として設計します</h2>
-                <p>単体サービスを並べるのではなく、それぞれがどの役割を持つかを整理することで、認知から問い合わせまでの流れを強くします。</p>
-            </div>
-
-            <div class="flow-shell">
-                <div class="panel flow-panel">
-                    <div class="flow-header">
-                        <h3>発信を一気通貫で設計する、実行型の支援</h3>
-                        <p>企業の現状や目的に合わせて、入口・理解・指名化のどこを補強するかから組み立てます。</p>
-                    </div>
-                    <div class="flow-grid">
-                        <article class="flow-step">
-                            <span>Step 01</span>
-                            <h4>Xで認知を広げる</h4>
-                            <p>拡散しやすい短文とリアルタイム運用で、接点を増やします。</p>
-                        </article>
-                        <article class="flow-step">
-                            <span>Step 02</span>
-                            <h4>記事で理解を深める</h4>
-                            <p>比較検討時に必要な情報を整理し、信頼形成を進めます。</p>
-                        </article>
-                        <article class="flow-step">
-                            <span>Step 03</span>
-                            <h4>Podcastで人を伝える</h4>
-                            <p>人柄や空気感まで伝え、指名や採用にもつなげます。</p>
-                        </article>
-                        <article class="flow-step">
-                            <span>Step 04</span>
-                            <h4>問い合わせ導線に落とす</h4>
-                            <p>各チャネルをつなぎ、比較検討から相談までの流れを整えます。</p>
-                        </article>
-                    </div>
+    <main>
+        <!-- Problems -->
+        <section class="section" id="problems">
+            <div class="container">
+                <div class="section-head reveal">
+                    <div class="eyebrow">Common Issues</div>
+                    <h2>発信が続かない理由は、<span class="accent">運用が分断されている</span>からです。</h2>
+                    <p>SNS、記事、動画を別々に進めると、手も時間も足りなくなります。まずは役割を整理して、一本の導線にすることが重要です。</p>
                 </div>
 
-                <aside class="panel quote-panel">
-                    <small>Concept</small>
-                    <h3>発信を、<br>単発施策で終わらせない。</h3>
-                    <p>認知だけ、記事だけ、動画だけではなく、役割を整理して一貫運用することで、社内の手間を抑えながら成果につながる導線を作りやすくなります。</p>
-                </aside>
+                <div class="problem-grid">
+                    <article class="panel problem-card reveal">
+                        <div class="problem-index">01</div>
+                        <h3>発信したいが、社内で回らない</h3>
+                        <p>企画、制作、投稿、改善までを社内だけで継続するのは負荷が大きく、更新が止まりやすくなります。</p>
+                    </article>
+                    <article class="panel problem-card reveal">
+                        <div class="problem-index">02</div>
+                        <h3>SNSだけでは、信頼まで届かない</h3>
+                        <p>認知は取れても、比較検討の材料が不足すると問い合わせにつながりにくくなります。</p>
+                    </article>
+                    <article class="panel problem-card reveal">
+                        <div class="problem-index">03</div>
+                        <h3>記事や動画が、導線になっていない</h3>
+                        <p>それぞれ単発で終わると資産化しづらく、発信全体の成果も見えにくくなります。</p>
+                    </article>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Services -->
-    <section class="section" id="services" aria-labelledby="services-title">
-        <div class="container">
-            <div class="section-head">
-                <div class="eyebrow">Services</div>
-                <h2 id="services-title">できることを、役割ごとに短く整理すると</h2>
-                <p>それぞれ単体でも支援できますが、組み合わせることで導線全体の強度を上げやすくなります。</p>
-            </div>
+        <!-- Support Structure -->
+        <section class="section" id="support">
+            <div class="container">
+                <div class="section-head reveal">
+                    <div class="eyebrow">Support Structure</div>
+                    <h2>役割を分けて、<span class="accent">認知から相談まで</span>をつなげます。</h2>
+                    <p>単体支援ではなく、各チャネルの役割を整理して運用することで、発信を営業導線として機能しやすくします。</p>
+                </div>
 
-            <div class="service-grid">
-                <article class="panel service-card">
-                    <div class="service-index">01</div>
-                    <span class="service-meta">Web Article / SEO / GEO</span>
-                    <h3>Web記事運用</h3>
-                    <p>比較検討時の信頼形成に強く、記事を資産として積み上げやすい支援です。note運用やX記事への展開、必要に応じたSEO / GEO設計にも対応できます。</p>
-                    <ul>
-                        <li>記事制作 / リライト / note運用</li>
-                        <li>X記事化などの再活用</li>
-                        <li>比較されやすい情報設計</li>
-                    </ul>
-                </article>
-
-                <article class="panel service-card">
-                    <div class="service-index">02</div>
-                    <span class="service-meta">X Operation</span>
-                    <h3>X運用代行</h3>
-                    <p>拡散力、リアルタイム性、エンゲージメント形成を活かして、認知の入口を広げる役割を担います。日々の運用負荷もまとめて支えます。</p>
-                    <ul>
-                        <li>ポスト作成・投稿</li>
-                        <li>リプライ対応 / 記事化</li>
-                        <li>月次レポート / KPI整理</li>
-                    </ul>
-                </article>
-
-                <article class="panel service-card">
-                    <div class="service-index">03</div>
-                    <span class="service-meta">Video Podcast</span>
-                    <h3>ビデオPodcast運用</h3>
-                    <p>人柄や空気感まで伝わるため、信頼構築に強い手段です。1本の収録から複数チャネル展開しやすく、営業だけでなく採用広報にも相性があります。</p>
-                    <ul>
-                        <li>企画から投稿まで一気通貫</li>
-                        <li>多チャネル展開に対応</li>
-                        <li>先行者優位を狙いやすい領域</li>
-                    </ul>
-                </article>
-            </div>
-        </div>
-    </section>
-    <!-- Benefits -->
-    <section class="section" aria-labelledby="benefits-title">
-        <div class="container">
-            <div class="section-head">
-                <div class="eyebrow">Benefits</div>
-                <h2 id="benefits-title">導入メリット</h2>
-                <p>発信を単体の施策として終わらせず、営業や採用でも使える資産に変えていくことが、この支援の価値です。</p>
-            </div>
-
-            <div class="benefit-grid">
-                <article class="panel benefit-card">
-                    <div class="benefit-index">A</div>
-                    <h3>発信を資産化しやすい</h3>
-                    <p>記事、X、Podcastを横展開しながら蓄積できるため、単発で終わりにくくなります。</p>
-                    <ul>
-                        <li>ストック型のコンテンツが増える</li>
-                        <li>過去素材の再利用もしやすい</li>
-                    </ul>
-                </article>
-                <article class="panel benefit-card">
-                    <div class="benefit-index">B</div>
-                    <h3>認知から問い合わせまでつながりやすい</h3>
-                    <p>入口となるSNS、理解を深める記事、指名につながる動画が一本の流れになります。</p>
-                    <ul>
-                        <li>比較検討の途中離脱を減らしやすい</li>
-                        <li>営業前の理解を前に進められる</li>
-                    </ul>
-                </article>
-                <article class="panel benefit-card">
-                    <div class="benefit-index">C</div>
-                    <h3>営業と採用の両方に効く</h3>
-                    <p>サービス理解だけでなく、会社の考え方や人柄まで伝えやすくなります。</p>
-                    <ul>
-                        <li>BtoBの信頼形成に相性が良い</li>
-                        <li>採用広報の土台にも使える</li>
-                    </ul>
-                </article>
-                <article class="panel benefit-card">
-                    <div class="benefit-index">D</div>
-                    <h3>社内工数を抑えやすい</h3>
-                    <p>企画、制作、投稿、再展開までを外部化することで、担当者の負担を減らせます。</p>
-                    <ul>
-                        <li>継続運用の負荷を下げられる</li>
-                        <li>社内にノウハウがなくても進めやすい</li>
-                    </ul>
-                </article>
-                <article class="panel benefit-card">
-                    <div class="benefit-index">E</div>
-                    <h3>AI時代の情報整備にもつながる</h3>
-                    <p>必要に応じてSEO / GEOの視点も取り入れ、AIや検索から参照されやすい情報設計を進められます。</p>
-                    <ul>
-                        <li>比較されやすい情報を整理できる</li>
-                        <li>根拠や強みを明文化しやすい</li>
-                    </ul>
-                </article>
-                <article class="panel benefit-card">
-                    <div class="benefit-index">F</div>
-                    <h3>単体でも、組み合わせでも相談できる</h3>
-                    <p>最初から全部を一度に始める必要はありません。現状と目的に合わせて設計できます。</p>
-                    <ul>
-                        <li>まずは記事だけ / Xだけも可能</li>
-                        <li>必要な時点で追加設計できる</li>
-                    </ul>
-                </article>
-            </div>
-        </div>
-    </section>
-
-    <!-- Pricing -->
-    <section class="section" aria-labelledby="pricing-title">
-        <div class="container">
-            <div class="section-head">
-                <div class="eyebrow">Pricing</div>
-                <h2 id="pricing-title">料金の考え方</h2>
-                <p>細かい料金表を先に固定するのではなく、目的・体制・運用本数を踏まえて最適な組み合わせを設計する進め方を基本にしています。</p>
-            </div>
-
-            <div class="pricing-grid">
-                <article class="panel price-card">
-                    <span class="price-meta">Single Service</span>
-                    <h3>単体支援も可能</h3>
-                    <p>「まずはXだけ」「まずは記事だけ」といったスタートでも問題ありません。必要なところから始めて、後から導線を拡張できます。</p>
-                    <ul>
-                        <li>Web記事制作 / 運用</li>
-                        <li>X運用代行</li>
-                        <li>ビデオPodcast運用</li>
-                    </ul>
-                </article>
-
-                <article class="panel price-card featured">
-                    <span class="price-meta">Integrated Plan</span>
-                    <h3>組み合わせ支援が本領</h3>
-                    <p>認知、信頼、比較検討のどこを強めるべきかを整理した上で、必要なサービスを組み合わせて設計します。</p>
-                    <div class="price-figure">要相談<span> / ヒアリングベース</span></div>
-                    <ul>
-                        <li>現状の発信状況を整理</li>
-                        <li>優先順位に沿って設計</li>
-                        <li>運用体制まで含めて提案</li>
-                    </ul>
-                </article>
-
-                <article class="panel price-card">
-                    <span class="price-meta">Reference</span>
-                    <h3>参考価格の目安</h3>
-                    <p>詳細は要相談ですが、既存支援の価格感は下記が目安です。目的や本数によって調整します。</p>
-                    <ul>
-                        <li>Web記事: 1記事 3〜5万円</li>
-                        <li>X運用: 月5万円〜</li>
-                        <li>Podcast: 月10万円〜</li>
-                        <li>GEO追加対応: 要相談</li>
-                    </ul>
-                </article>
-            </div>
-
-            <p class="pricing-footnote">まずは無理なく続けられる運用設計を優先し、その上で必要な支援範囲を決める進め方をおすすめしています。</p>
-        </div>
-    </section>
-
-    <!-- CTA -->
-    <section class="section" id="contact" aria-labelledby="cta-title">
-        <div class="container">
-            <div class="cta-shell">
-                <div class="cta-grid">
-                    <div class="cta-copy">
-                        <div class="eyebrow">Contact</div>
-                        <h2 id="cta-title">発信の現状整理から、無料でご相談いただけます</h2>
-                        <p>「何から始めるべきか分からない」「記事・SNS・動画をどうつなげるべきか整理したい」という段階でも問題ありません。まずは現状と目的を伺い、どこから設計するのが自然かをご提案します。</p>
+                <div class="flow-shell">
+                    <div class="panel flow-panel reveal">
+                        <div class="flow-header">
+                            <h3>発信導線の設計</h3>
+                            <p>何をどこで伝えるかを整理し、接点から比較検討までを一貫して支援します。</p>
+                        </div>
+                        <div class="flow-grid">
+                            <article class="flow-step">
+                                <span>Step 01</span>
+                                <h4>認知</h4>
+                                <p>Xで最初の接点を増やします。</p>
+                            </article>
+                            <article class="flow-step">
+                                <span>Step 02</span>
+                                <h4>理解</h4>
+                                <p>記事やnoteで内容を深めます。</p>
+                            </article>
+                            <article class="flow-step">
+                                <span>Step 03</span>
+                                <h4>信頼</h4>
+                                <p>Podcastで人とブランドまで伝えます。</p>
+                            </article>
+                            <article class="flow-step">
+                                <span>Step 04</span>
+                                <h4>比較検討</h4>
+                                <p>SEO / GEOも視野に整理し、相談しやすい状態へつなげます。</p>
+                            </article>
+                        </div>
                     </div>
 
-                    <div class="cta-card">
-                        <h3>ご相談いただける内容</h3>
-                        <p>単体サービスの相談から、統合運用の設計まで対応できます。</p>
-                        <ul class="cta-list">
-                            <li>記事 / X / Podcast の役割整理</li>
-                            <li>認知から問い合わせまでの導線設計</li>
-                            <li>社内体制に合う運用方法の設計</li>
-                            <li>SEO / GEO を含めた情報整理</li>
+                    <aside class="panel quote-panel reveal">
+                        <small>Integrated Value</small>
+                        <h3>発信を増やすだけでなく、<br>選ばれやすい流れまで設計する。</h3>
+                        <p>認知だけ、記事だけ、動画だけで終わらせず、それぞれを役割分担させることで、営業や採用にも効く発信体制を整えます。</p>
+                    </aside>
+                </div>
+
+                <div class="service-grid" style="margin-top: 18px;">
+                    <article class="panel service-card reveal">
+                        <div class="service-index">A</div>
+                        <div class="service-meta">Web Articles</div>
+                        <h3>Web記事運用</h3>
+                        <p>比較検討時の理解と信頼形成を支える、ストック型の発信です。</p>
+                        <ul>
+                            <li>記事制作 / リライト</li>
+                            <li>note運用 / X記事展開</li>
+                            <li>必要に応じたSEO / GEO設計</li>
                         </ul>
-                        <div class="hero-actions" style="margin-top: 20px;">
-                            <a class="button button-primary" href="#contact">お問い合わせ・無料相談</a>
+                    </article>
+                    <article class="panel service-card reveal">
+                        <div class="service-index">B</div>
+                        <div class="service-meta">X Operation</div>
+                        <h3>X運用代行</h3>
+                        <p>拡散力とリアルタイム性を活かし、接点を増やし続けます。</p>
+                        <ul>
+                            <li>投稿企画 / 作成 / 投稿</li>
+                            <li>リプライ対応 / 記事化</li>
+                            <li>簡易レポートにも対応</li>
+                        </ul>
+                    </article>
+                    <article class="panel service-card reveal">
+                        <div class="service-index">C</div>
+                        <div class="service-meta">Video Podcast</div>
+                        <h3>ビデオPodcast運用</h3>
+                        <p>人柄や空気感まで伝えられるため、営業や採用でも信頼を作りやすい施策です。</p>
+                        <ul>
+                            <li>企画から収録・投稿まで対応</li>
+                            <li>YouTube / Spotify などへ展開</li>
+                            <li>他チャネルへの横展開も可能</li>
+                        </ul>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Benefits -->
+        <section class="section" id="benefits">
+            <div class="container">
+                <div class="section-head reveal">
+                    <div class="eyebrow">Benefits</div>
+                    <h2>発信をまとめて設計することで、<span class="accent">成果につながりやすくなります。</span></h2>
+                    <p>コンテンツを単発で終わらせず、積み上がる導線として運用できるのが大きな強みです。</p>
+                </div>
+
+                <div class="benefit-grid">
+                    <article class="panel benefit-card reveal">
+                        <div class="benefit-index">01</div>
+                        <h3>発信が資産になる</h3>
+                        <p>記事、投稿、動画を横展開しながら蓄積し、使い捨てになりにくい状態を作ります。</p>
+                    </article>
+                    <article class="panel benefit-card reveal">
+                        <div class="benefit-index">02</div>
+                        <h3>認知から相談までつながる</h3>
+                        <p>入口だけで終わらず、理解と比較検討の材料まで一貫して用意できます。</p>
+                    </article>
+                    <article class="panel benefit-card reveal">
+                        <div class="benefit-index">03</div>
+                        <h3>営業と採用にも使いやすい</h3>
+                        <p>サービス理解だけでなく、会社や担当者の信頼感まで伝えやすくなります。</p>
+                    </article>
+                    <article class="panel benefit-card reveal">
+                        <div class="benefit-index">04</div>
+                        <h3>社内工数を抑えられる</h3>
+                        <p>運用をまとめて相談できるため、社内での管理負荷を減らしやすくなります。</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing -->
+        <section class="section" id="pricing">
+            <div class="container">
+                <div class="section-head reveal">
+                    <div class="eyebrow">Pricing</div>
+                    <h2>料金は、<span class="accent">必要な範囲に合わせて設計</span>します。</h2>
+                    <p>単体支援にも対応しつつ、組み合わせ運用はヒアリングベースで最適化します。</p>
+                </div>
+
+                <div class="pricing-grid">
+                    <article class="panel price-card reveal">
+                        <div class="price-meta">Flexible Support</div>
+                        <h3>Web記事 / X運用</h3>
+                        <p>単体支援、または組み合わせ支援に対応しています。目的や体制に応じて内容を整理し、無理のない運用設計をご提案します。</p>
+                        <ul>
+                            <li>単発相談も可能</li>
+                            <li>継続運用にも対応</li>
+                            <li>詳細はヒアリング後にご案内</li>
+                        </ul>
+                    </article>
+                    <article class="panel price-card featured reveal">
+                        <div class="price-meta">Podcast Reference</div>
+                        <h3>ビデオPodcast運用</h3>
+                        <div class="price-figure">10万円〜<span> / 月</span></div>
+                        <p>既存プランの参考価格です。企画から投稿までを含めて支援し、必要に応じて他チャネル展開も視野に入れます。</p>
+                        <ul>
+                            <li>月20本プランから対応</li>
+                            <li>上位プランの設計も可能</li>
+                            <li>詳細は要相談</li>
+                        </ul>
+                    </article>
+                </div>
+
+                <p class="pricing-footnote reveal">3つのサービスを別々に契約するのではなく、目的に合わせて組み合わせる前提でご相談いただけます。</p>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="section" id="contact">
+            <div class="container">
+                <div class="cta-shell reveal">
+                    <div class="cta-grid">
+                        <div class="cta-copy">
+                            <div class="eyebrow">Contact</div>
+                            <h2>発信を、<span class="accent">営業導線として整えたい</span>企業様へ。</h2>
+                            <p>何から始めるべきか整理したい段階でも問題ありません。今の発信状況を伺いながら、必要な施策の組み合わせをご提案します。</p>
+                        </div>
+                        <div class="cta-card">
+                            <h3>ご相談いただける内容</h3>
+                            <p>単体支援の相談から、記事・SNS・動画を横断した運用設計まで対応します。</p>
+                            <ul class="cta-list">
+                                <li>まず何を優先すべきか整理したい</li>
+                                <li>記事とSNSをまとめて見直したい</li>
+                                <li>Podcast活用も含めて相談したい</li>
+                            </ul>
+                            <div class="hero-actions" style="margin-top: 18px;">
+                                <a class="button button-primary" href="#top">お問い合わせ</a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
+    <!-- Footer -->
     <footer>
         <div class="container">
             <div class="footer-inner">
-                <div>Deviant</div>
-                <div>Web記事 / X運用 / ビデオPodcastを、導線として一貫支援</div>
+                <span>Deviant</span>
+                <span>Integrated Communication Support</span>
             </div>
         </div>
     </footer>
+
+    <script>
+        (() => {
+            const items = document.querySelectorAll('.reveal');
+            if (!items.length) return;
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.18 });
+
+            items.forEach((item, index) => {
+                item.style.transitionDelay = `${Math.min(index * 0.04, 0.22)}s`;
+                observer.observe(item);
+            });
+        })();
+    </script>
 </body>
 </html>
 
