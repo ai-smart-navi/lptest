@@ -1,4 +1,4 @@
-﻿:root {
+:root {
     --bg: #070707;
     --bg-soft: #101010;
     --panel: rgba(255, 255, 255, 0.045);
@@ -469,6 +469,10 @@ p {
     grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
+.service-grid-four {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
 .value-grid,
 .detail-grid,
 .pricing-grid {
@@ -679,6 +683,10 @@ p {
     .metric-stack {
         grid-template-columns: 1fr;
     }
+
+    .service-grid-four {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
 }
 
 @media (max-width: 760px) {
@@ -759,6 +767,10 @@ p {
     .tag-row {
         align-items: stretch;
     }
+
+    .service-grid-four {
+        grid-template-columns: 1fr;
+    }
 }
 @media (prefers-reduced-motion: reduce) {
     *,
@@ -769,7 +781,3 @@ p {
         scroll-behavior: auto !important;
     }
 }
-
-
-
-
